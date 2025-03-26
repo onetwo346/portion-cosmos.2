@@ -53,7 +53,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -2;
             pointer-events: none;
             background: 
                 radial-gradient(circle at 20% 30%, rgba(0, 247, 255, 0.05) 0%, transparent 20%),
@@ -70,6 +70,9 @@
             pointer-events: none;
             z-index: 9999;
             transition: transform 0.1s ease;
+            will-change: transform;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
         }
 
         .cursor-trail {
@@ -82,6 +85,10 @@
             z-index: 9998;
             opacity: 0.5;
             transition: all 0.2s ease;
+            will-change: transform, opacity;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+            box-shadow: 0 0 10px var(--plasma-pink);
         }
 
         /* Pulsar Navigation */
@@ -124,6 +131,7 @@
             position: relative;
             padding: 0.5rem;
             transition: color var(--light-speed);
+            cursor: pointer;
         }
 
         .nav-link::after {
@@ -137,11 +145,11 @@
             transition: width var(--light-speed);
         }
 
-        .nav-link:hover, .nav-link:focus {
+        .nav-link:hover, .nav-link:focus, .nav-link.active {
             color: var(--plasma-pink);
         }
 
-        .nav-link:hover::after, .nav-link:focus::after {
+        .nav-link:hover::after, .nav-link:focus::after, .nav-link.active::after {
             width: 100%;
         }
 
@@ -176,12 +184,20 @@
             background-clip: text;
             color: transparent;
             text-shadow: 0 0 30px rgba(0, 247, 255, 0.3);
-            animation: glow 2s infinite alternate;
+            animation: float 3s ease-in-out infinite, glitch 5s infinite;
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px var(--quantum-blue); }
-            to { text-shadow: 0 0 30px var(--plasma-pink); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 var(--quantum-blue), -2px 0 var(--plasma-pink); }
+            25% { text-shadow: -2px 0 var(--quantum-blue), 2px 0 var(--plasma-pink); }
+            50% { text-shadow: 2px 0 var(--quantum-blue), -2px 0 var(--plasma-pink); }
+            75% { text-shadow: -2px 0 var(--quantum-blue), 2px 0 var(--plasma-pink); }
+            100% { text-shadow: 2px 0 var(--quantum-blue), -2px 0 var(--plasma-pink); }
         }
 
         .subtitle {
@@ -207,12 +223,13 @@
             text-decoration: none;
             font-weight: 900;
             border-radius: 50px;
-            transition: transform var(--light-speed), box-shadow var(--light-speed);
+            transition: all 0.3s ease;
         }
 
         .cta-btn:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 10px 30px rgba(0, 247, 255, 0.5);
+            animation: lightSweep 2s linear infinite;
         }
 
         /* Main Content Wormhole */
@@ -234,6 +251,14 @@
             color: var(--quantum-blue);
             position: relative;
             display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        h2.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         h2::after {
@@ -241,9 +266,14 @@
             position: absolute;
             bottom: -1rem;
             left: 0;
-            width: 100%;
+            width: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--quantum-blue), transparent);
+            background: linear-gradient(90deg, var(--quantum-blue), var(--plasma-pink));
+            transition: width 0.6s ease-out;
+        }
+
+        h2.visible::after {
+            width: 100%;
         }
 
         .about-content {
@@ -251,12 +281,28 @@
             margin: 0 auto;
             text-align: center;
             color: white;
-            animation: fadeIn 1s ease-in;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            padding: 2rem;
+            background: rgba(0, 247, 255, 0.05);
+            border-radius: 1rem;
+            border: 1px solid rgba(0, 247, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .about-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.2);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p:last-child {
+            margin-bottom: 0;
         }
 
         .blog-posts {
@@ -270,13 +316,18 @@
             background: rgba(255, 0, 247, 0.1);
             padding: 2rem;
             border-radius: 1rem;
-            transition: transform var(--light-speed), box-shadow var(--light-speed);
-            border: 1px solid rgba(255, 0, 247, 0.3);
+            transition: all 0.4s ease;
+            border: 1px solid transparent;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .blog-post:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) rotateX(5deg);
             box-shadow: 0 10px 20px rgba(255, 0, 247, 0.4);
+            animation: pulse 2s infinite;
+            border: 1px solid;
+            animation: gradientBorder 3s linear infinite;
         }
 
         .blog-post h3 {
@@ -468,14 +519,15 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            transition: transform var(--light-speed), box-shadow var(--light-speed);
+            transition: all 0.3s ease;
             margin-top: 2rem;
             display: inline-block;
         }
 
         .donation-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.5);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.5);
+            animation: lightSweep 2s linear infinite;
         }
 
         .contact-item {
@@ -523,6 +575,7 @@
             transform: scale(1.1);
         }
 
+        /* Scroll to Top Button */
         .scroll-to-top {
             position: fixed;
             bottom: 2rem;
@@ -540,6 +593,7 @@
             transition: all var(--light-speed);
             z-index: 999;
             border: none;
+            box-shadow: 0 0 20px rgba(255, 0, 247, 0.3);
         }
 
         .scroll-to-top.visible {
@@ -549,6 +603,7 @@
         .scroll-to-top:hover {
             background: var(--quantum-blue);
             transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 247, 255, 0.5);
         }
 
         .loader {
@@ -615,6 +670,280 @@
             .subtitle, .tagline { font-size: 1rem; }
             h2 { font-size: 2rem; }
         }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes gradientBorder {
+            0% { border-image: linear-gradient(0deg, var(--quantum-blue), var(--plasma-pink)) 1; }
+            50% { border-image: linear-gradient(180deg, var(--quantum-blue), var(--plasma-pink)) 1; }
+            100% { border-image: linear-gradient(360deg, var(--quantum-blue), var(--plasma-pink)) 1; }
+        }
+
+        @keyframes lightSweep {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Add scroll reveal styles */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Simplify stars animation */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            pointer-events: none;
+            background: radial-gradient(circle at center, var(--dark-matter) 0%, #000 100%);
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 1s infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            will-change: transform, opacity;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                animation: float 4s ease-in-out infinite, glitch 8s infinite;
+                font-size: 2.5rem;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--dark-matter);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transition: right 0.3s ease;
+                border-left: 1px solid var(--event-horizon);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-link {
+                font-size: 1.2rem;
+                padding: 1rem 0;
+            }
+
+            .hero {
+                padding: 6rem 1rem 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            .container {
+                padding: 4rem 1rem;
+            }
+
+            .about-content {
+                padding: 1.5rem;
+                margin: 0 1rem;
+            }
+
+            .project-filters {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding: 0 1rem;
+            }
+
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .project {
+                margin: 0;
+            }
+
+            .blog-posts {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .modal-content {
+                width: 90%;
+                margin: 2rem auto;
+                padding: 2rem 1.5rem;
+            }
+
+            .contact-info {
+                padding: 2rem 1rem;
+            }
+
+            .social-links {
+                gap: 1rem;
+            }
+
+            .scroll-to-top {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-btn, .donation-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .project img {
+                height: 180px;
+            }
+
+            .blog-post {
+                padding: 1.5rem;
+            }
+
+            .blog-post h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Fix for iOS Safari 100vh issue */
+        @supports (-webkit-touch-callout: none) {
+            .hero {
+                height: -webkit-fill-available;
+            }
+        }
+
+        /* New Animation Classes */
+        .glow-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px var(--quantum-blue); }
+            50% { box-shadow: 0 0 40px var(--plasma-pink); }
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        .neon-border {
+            position: relative;
+            border: 2px solid transparent;
+            background: linear-gradient(var(--dark-matter), var(--dark-matter)) padding-box,
+                        linear-gradient(45deg, var(--quantum-blue), var(--plasma-pink)) border-box;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { border-image: linear-gradient(0deg, var(--quantum-blue), var(--plasma-pink)) 1; }
+            50% { border-image: linear-gradient(180deg, var(--quantum-blue), var(--plasma-pink)) 1; }
+            100% { border-image: linear-gradient(360deg, var(--quantum-blue), var(--plasma-pink)) 1; }
+        }
     </style>
 </head>
 <body>
@@ -656,8 +985,8 @@
         <section id="about">
             <h2>About Me</h2>
             <div class="about-content">
-                <p>I'm Cosmos Coderr, a cosmic coder navigating the universe of tech. I build games, tools, and web experiences powered by AI and imagination.</p>
-                <p>Join me on this interstellar journey—let's create something out of this world!</p>
+                <p>I'm Cosmos Coderr, a coder navigating the universe through tech. I build games, tools, and web experiences.</p>
+                <p>Join me on this interstellar journey let's create something out of this world!</p>
             </div>
         </section>
 
@@ -827,81 +1156,214 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <div class="stars-container" id="starsContainer"></div>
+
     <script>
         // Initialize cosmic elements
         document.addEventListener('DOMContentLoaded', () => {
             // Set current year
             document.getElementById('year').textContent = new Date().getFullYear();
             
-            // Mobile menu toggle
+            // Create stars with performance optimization
+            function createStars() {
+                const container = document.getElementById('starsContainer');
+                const fragment = document.createDocumentFragment();
+                
+                for (let i = 0; i < 300; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 2}s`;
+                    fragment.appendChild(star);
+                }
+                
+                container.appendChild(fragment);
+            }
+
+            // Optimized parallax effect with requestAnimationFrame
+            let ticking = false;
+            let lastMouseX = 0;
+            let lastMouseY = 0;
+            
+            document.addEventListener('mousemove', (e) => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const stars = document.querySelectorAll('.star');
+                        const mouseX = e.clientX / window.innerWidth;
+                        const mouseY = e.clientY / window.innerHeight;
+                        
+                        // Calculate delta movement for smoother parallax
+                        const deltaX = mouseX - lastMouseX;
+                        const deltaY = mouseY - lastMouseY;
+                        
+                        stars.forEach(star => {
+                            const speed = Math.random() * 20 + 10;
+                            const x = (mouseX - 0.5) * speed;
+                            const y = (mouseY - 0.5) * speed;
+                            star.style.transform = `translate(${x}px, ${y}px) scale(1)`;
+                        });
+                        
+                        lastMouseX = mouseX;
+                        lastMouseY = mouseY;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // Scroll to Top functionality
+            const scrollToTopBtn = document.querySelector('.scroll-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Enhanced cursor trail with performance optimization
+            const cursor = document.getElementById('cursor');
+            const trails = [];
+            let lastX = 0;
+            let lastY = 0;
+            let trailCount = 0;
+            const maxTrails = 20;
+            
+            document.addEventListener('mousemove', (e) => {
+                const currentX = e.clientX;
+                const currentY = e.clientY;
+                
+                // Only create trail if mouse has moved significantly
+                if (Math.abs(currentX - lastX) > 2 || Math.abs(currentY - lastY) > 2) {
+                    cursor.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                    
+                    // Create new trail with random size and color
+                    const trail = document.createElement('div');
+                    trail.className = 'cursor-trail';
+                    trail.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                    trail.style.width = `${Math.random() * 8 + 4}px`;
+                    trail.style.height = trail.style.width;
+                    trail.style.background = Math.random() > 0.5 ? 'var(--quantum-blue)' : 'var(--plasma-pink)';
+                    document.body.appendChild(trail);
+                    trails.push(trail);
+                    
+                    // Limit number of trails
+                    if (trailCount >= maxTrails) {
+                        const oldestTrail = trails.shift();
+                        oldestTrail.remove();
+                    } else {
+                        trailCount++;
+                    }
+                    
+                    // Fade out and remove trail with random duration
+                    const duration = Math.random() * 200 + 100;
+                    setTimeout(() => {
+                        trail.style.opacity = '0';
+                        setTimeout(() => {
+                            trail.remove();
+                            trails.shift();
+                            trailCount--;
+                        }, 200);
+                    }, duration);
+                    
+                    lastX = currentX;
+                    lastY = currentY;
+                }
+            });
+
+            // Enhanced scroll reveal with Intersection Observer
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-reveal, h2').forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Mobile menu with improved accessibility
             const menuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
             
-            menuBtn.addEventListener('click', () => {
+            function toggleMenu() {
                 const isExpanded = navLinks.classList.contains('active');
                 navLinks.classList.toggle('active');
                 menuBtn.setAttribute('aria-expanded', !isExpanded);
                 menuBtn.innerHTML = isExpanded ? '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
-            });
+                
+                // Trap focus within menu when open
+                if (!isExpanded) {
+                    const focusableElements = navLinks.querySelectorAll('a, button');
+                    const firstFocusable = focusableElements[0];
+                    const lastFocusable = focusableElements[focusableElements.length - 1];
+                    
+                    navLinks.addEventListener('keydown', (e) => {
+                        if (e.key === 'Tab') {
+                            if (e.shiftKey) {
+                                if (document.activeElement === firstFocusable) {
+                                    lastFocusable.focus();
+                                }
+                            } else {
+                                if (document.activeElement === lastFocusable) {
+                                    firstFocusable.focus();
+                                }
+                            }
+                        }
+                        if (e.key === 'Escape') {
+                            toggleMenu();
+                        }
+                    });
+                }
+            }
             
-            // Smooth scrolling for anchor links
+            menuBtn.addEventListener('click', toggleMenu);
+            
+            // Enhanced smooth scrolling with offset compensation
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    if (this.getAttribute('href').startsWith('#')) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        const target = document.querySelector(targetId);
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const target = document.querySelector(targetId);
+                    
+                    if (target) {
+                        const navHeight = document.querySelector('.cosmic-nav').offsetHeight;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
                         
-                        if (target) {
-                            window.scrollTo({
-                                top: target.offsetTop - 80,
-                                behavior: 'smooth'
-                            });
-                            history.pushState(null, null, targetId);
-                            
-                            // Close mobile menu if open
-                            if (navLinks.classList.contains('active')) {
-                                navLinks.classList.remove('active');
-                                menuBtn.setAttribute('aria-expanded', 'false');
-                                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                            }
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        history.pushState(null, null, targetId);
+                        
+                        // Close mobile menu if open
+                        if (navLinks.classList.contains('active')) {
+                            toggleMenu();
                         }
                     }
                 });
             });
             
-            // Highlight current section in navigation
-            window.addEventListener('scroll', () => {
-                const sections = document.querySelectorAll('section');
-                const navLinks = document.querySelectorAll('.nav-links a');
-                let current = '';
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (window.pageYOffset >= sectionTop - 100 && window.pageYOffset < sectionTop + sectionHeight - 100) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-            
-            // Scroll to top button
-            const scrollToTopBtn = document.querySelector('.scroll-to-top');
-            window.addEventListener('scroll', () => {
-                scrollToTopBtn.classList.toggle('visible', window.pageYOffset > 300);
-            });
-            scrollToTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            
-            // Project filtering
+            // Optimized project filtering
             const filterButtons = document.querySelectorAll('.filter-btn');
             const projects = document.querySelectorAll('.project');
             
@@ -914,6 +1376,10 @@
                     projects.forEach(project => {
                         if (filter === 'all' || project.getAttribute('data-category') === filter) {
                             project.style.display = 'block';
+                            project.style.opacity = '0';
+                            setTimeout(() => {
+                                project.style.opacity = '1';
+                            }, 50);
                         } else {
                             project.style.display = 'none';
                         }
@@ -921,7 +1387,7 @@
                 });
             });
             
-            // Blog modal functionality
+            // Enhanced blog modal with keyboard navigation
             const blogModal = document.getElementById('blogModal');
             const closeModal = document.getElementById('closeModal');
             
@@ -929,6 +1395,28 @@
                 blogModal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
                 closeModal.focus();
+                
+                // Trap focus within modal
+                const focusableElements = blogModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                const firstFocusable = focusableElements[0];
+                const lastFocusable = focusableElements[focusableElements.length - 1];
+                
+                blogModal.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab') {
+                        if (e.shiftKey) {
+                            if (document.activeElement === firstFocusable) {
+                                lastFocusable.focus();
+                            }
+                        } else {
+                            if (document.activeElement === lastFocusable) {
+                                firstFocusable.focus();
+                            }
+                        }
+                    }
+                    if (e.key === 'Escape') {
+                        closeModalFunc();
+                    }
+                });
             }
             
             function closeModalFunc() {
@@ -939,12 +1427,6 @@
             closeModal.addEventListener('click', closeModalFunc);
             window.addEventListener('click', (e) => {
                 if (e.target === blogModal) closeModalFunc();
-            });
-            
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && blogModal.style.display === 'block') {
-                    closeModalFunc();
-                }
             });
             
             // Blog posts data
@@ -975,7 +1457,7 @@
                 }
             ];
 
-            // Display blog posts
+            // Display blog posts with improved performance
             function displayBlogPosts() {
                 const container = document.getElementById('blogPostsContainer');
                 const loader = document.getElementById('blogLoader');
@@ -984,75 +1466,87 @@
                 
                 loader.style.display = 'block';
                 
-                setTimeout(() => {
-                    try {
-                        container.innerHTML = '';
-                        blogPosts.forEach((post, index) => {
-                            const article = document.createElement('article');
-                            article.className = 'blog-post';
-                            article.innerHTML = `
-                                <h3>${post.title}</h3>
-                                <span class="date">${post.date}</span>
-                                <p>${post.summary}</p>
-                                <a href="#" class="read-more" data-post-id="${index}">Read more →</a>
-                            `;
-                            container.appendChild(article);
+                // Use DocumentFragment for better performance
+                const fragment = document.createDocumentFragment();
+                
+                try {
+                    blogPosts.forEach((post, index) => {
+                        const article = document.createElement('article');
+                        article.className = 'blog-post scroll-reveal';
+                        article.innerHTML = `
+                            <h3>${post.title}</h3>
+                            <span class="date">${post.date}</span>
+                            <p>${post.summary}</p>
+                            <a href="#" class="read-more" data-post-id="${index}">Read more →</a>
+                        `;
+                        fragment.appendChild(article);
+                    });
+                    
+                    container.innerHTML = '';
+                    container.appendChild(fragment);
+                    
+                    // Add click handlers after DOM update
+                    document.querySelectorAll('.read-more').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const postId = btn.getAttribute('data-post-id');
+                            document.getElementById('modalTitle').textContent = blogPosts[postId].title;
+                            document.getElementById('modalDate').textContent = blogPosts[postId].date;
+                            document.getElementById('modalBody').innerHTML = blogPosts[postId].fullContent;
+                            openModal();
                         });
-                        
-                        document.querySelectorAll('.read-more').forEach(btn => {
-                            btn.addEventListener('click', (e) => {
-                                e.preventDefault();
-                                const postId = btn.getAttribute('data-post-id');
-                                document.getElementById('modalTitle').textContent = blogPosts[postId].title;
-                                document.getElementById('modalDate').textContent = blogPosts[postId].date;
-                                document.getElementById('modalBody').innerHTML = blogPosts[postId].fullContent;
-                                openModal();
-                            });
-                        });
-                    } catch (error) {
-                        console.error('Error displaying blog posts:', error);
-                        container.innerHTML = '<p>Error loading blog posts. Please try again later.</p>';
-                    } finally {
-                        loader.style.display = 'none';
-                    }
-                }, 800);
+                    });
+                    
+                    // Observe new blog posts for scroll reveal
+                    document.querySelectorAll('.blog-post').forEach(post => {
+                        observer.observe(post);
+                    });
+                } catch (error) {
+                    console.error('Error displaying blog posts:', error);
+                    container.innerHTML = '<p>Error loading blog posts. Please try again later.</p>';
+                } finally {
+                    loader.style.display = 'none';
+                }
             }
             
+            // Initialize blog posts
             displayBlogPosts();
+
+            // Initialize all features
+            createStars();
+            handleScrollReveal();
             
-            // Cosmic cursor
-            const cursor = document.getElementById('cursor');
-            const trails = [];
-            
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = `${e.clientX}px`;
-                cursor.style.top = `${e.clientY}px`;
-                
-                const trail = document.createElement('div');
-                trail.className = 'cursor-trail';
-                trail.style.left = `${e.clientX}px`;
-                trail.style.top = `${e.clientY}px`;
-                document.body.appendChild(trail);
-                trails.push(trail);
-                
-                setTimeout(() => {
-                    trail.remove();
-                    trails.shift();
-                }, 300);
+            // Add scroll-reveal class to sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('scroll-reveal');
             });
-            
-            // Make project cards keyboard accessible
-            document.querySelectorAll('.project').forEach(p => {
-                p.setAttribute('role', 'button');
-                p.setAttribute('tabindex', '0');
-                p.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        const link = p.querySelector('a');
-                        if (link) link.click();
-                    }
+
+            // Add hover effects to projects
+            document.querySelectorAll('.project').forEach(project => {
+                project.classList.add('hover-scale', 'neon-border');
+                
+                project.addEventListener('mouseenter', () => {
+                    project.style.transform = 'scale(1.05) rotateX(5deg) rotateY(5deg)';
                 });
+                
+                project.addEventListener('mouseleave', () => {
+                    project.style.transform = 'scale(1) rotateX(0) rotateY(0)';
+                });
+            });
+
+            // Add glow effect to navigation
+            document.querySelector('.cosmic-nav').classList.add('glow-effect');
+
+            // Add pulse glow to CTA buttons
+            document.querySelectorAll('.cta-btn, .donation-btn').forEach(btn => {
+                btn.classList.add('pulse-glow');
+            });
+
+            // Add float animation to blog posts
+            document.querySelectorAll('.blog-post').forEach(post => {
+                post.classList.add('float-animation');
             });
         });
     </script>
 </body>
-</html>
+</html> 
