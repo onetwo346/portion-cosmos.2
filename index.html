@@ -89,6 +89,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -99,6 +104,7 @@
             min-height: 100vh;
             line-height: 1.6;
             cursor: none;
+            scroll-behavior: smooth;
         }
 
         /* Quantum Field Background */
@@ -1658,11 +1664,81 @@
                 }
             });
 
-            scrollToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+            // Unified smooth scroll function with improved precision
+            function smoothScroll(targetPosition, duration = 1000) {
+                const startPosition = window.pageYOffset;
+                const distance = targetPosition - startPosition;
+                let start = null;
+                let requestId;
+
+                // Enhanced easing function for smoother acceleration and deceleration
+                function easeInOutCubic(t, b, c, d) {
+                    t /= d/2;
+                    if (t < 1) return c/2*t*t*t + b;
+                    t -= 2;
+                    return c/2*(t*t*t + 2) + b;
+                }
+
+                function animation(currentTime) {
+                    if (start === null) start = currentTime;
+                    const timeElapsed = Math.min(currentTime - start, duration);
+                    const progress = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+                    
+                    // Ensure we don't overshoot the target
+                    if (distance > 0) {
+                        window.scrollTo(0, Math.min(progress, targetPosition));
+                    } else {
+                        window.scrollTo(0, Math.max(progress, targetPosition));
+                    }
+                    
+                    if (timeElapsed < duration) {
+                        requestId = requestAnimationFrame(animation);
+                    } else {
+                        // Ensure we land exactly on target
+                        window.scrollTo(0, targetPosition);
+                    }
+                }
+
+                // Cancel any ongoing animation
+                if (typeof window.currentScrollAnimation !== 'undefined') {
+                    cancelAnimationFrame(window.currentScrollAnimation);
+                }
+                
+                requestId = requestAnimationFrame(animation);
+                window.currentScrollAnimation = requestId;
+            }
+
+            // Apply smooth scroll to all navigation links with improved handling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        if (navLinks.classList.contains('active')) {
+                            toggleMenu();
+                        }
+                        
+                        // Calculate exact target position with offset for fixed header
+                        const headerOffset = 80; // Height of fixed header
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        
+                        // Ensure we don't scroll past the document bounds
+                        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                        const targetPosition = Math.min(offsetPosition, maxScroll);
+                        
+                        smoothScroll(targetPosition);
+                    }
                 });
+            });
+
+            // Update scroll to top button with precise handling
+            scrollToTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                smoothScroll(0);
             });
 
             // Enhanced cursor trail with performance optimization
@@ -1787,6 +1863,9 @@
                     });
                 }
             }
+            
+            // Add click event listener to menu button
+            menuBtn.addEventListener('click', toggleMenu);
             
             // Close menu when clicking overlay
             menuOverlay.addEventListener('click', toggleMenu);
@@ -2016,6 +2095,51 @@
             // Add float animation to blog posts
             document.querySelectorAll('.blog-post').forEach(post => {
                 post.classList.add('float-animation');
+            });
+
+            // Enhanced smooth scrolling with controlled animation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        if (navLinks.classList.contains('active')) {
+                            toggleMenu();
+                        }
+                        
+                        // Get target position
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const startPosition = window.pageYOffset;
+                        const distance = targetPosition - startPosition;
+                        const duration = 1000; // Duration in milliseconds
+                        let start = null;
+                        
+                        // Easing function for smooth acceleration and deceleration
+                        function easeInOutCubic(t, b, c, d) {
+                            t /= d/2;
+                            if (t < 1) return c/2*t*t*t + b;
+                            t -= 2;
+                            return c/2*(t*t*t + 2) + b;
+                        }
+                        
+                        // Animation function
+                        function animation(currentTime) {
+                            if (start === null) start = currentTime;
+                            const timeElapsed = currentTime - start;
+                            const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+                            window.scrollTo(0, run);
+                            
+                            if (timeElapsed < duration) {
+                                requestAnimationFrame(animation);
+                            }
+                        }
+                        
+                        requestAnimationFrame(animation);
+                    }
+                });
             });
         });
     </script>
