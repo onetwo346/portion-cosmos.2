@@ -22,12 +22,23 @@
     <meta property="og:site_name" content="Cosmos Coderr">
     
     <!-- X (formerly Twitter) -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@cosmoscoderr">
-    <meta name="twitter:creator" content="@cosmoscoderr">
-    <meta name="twitter:title" content="Cosmos Coderr - Galactic Portfolio">
-    <meta name="twitter:description" content="Explore the digital universe of Cosmos Coderr - Game Developer, Web Creator, and Tool Builder. Discover innovative projects and cosmic coding experiences.">
-    <meta name="twitter:image" content="https://cosmoscoderr.online/cosmoslogo.jpg">
+    <meta name="x:card" content="summary_large_image">
+    <meta name="x:site" content="@cosmoscoderr">
+    <meta name="x:creator" content="@cosmoscoderr">
+    <meta name="x:title" content="Cosmos Coderr - Galactic Portfolio">
+    <meta name="x:description" content="Explore the digital universe of Cosmos Coderr - Game Developer, Web Creator, and Tool Builder. Discover innovative projects and cosmic coding experiences.">
+    <meta name="x:image" content="https://cosmoscoderr.online/cosmoslogo.jpg">
+    <meta name="x:image:alt" content="Cosmos Coderr Portfolio Logo">
+    <meta name="x:domain" content="cosmoscoderr.online">
+    <meta name="x:app:name:iphone" content="Cosmos Coderr">
+    <meta name="x:app:name:ipad" content="Cosmos Coderr">
+    <meta name="x:app:name:googleplay" content="Cosmos Coderr">
+    <meta name="x:app:url:iphone" content="https://cosmoscoderr.online">
+    <meta name="x:app:url:ipad" content="https://cosmoscoderr.online">
+    <meta name="x:app:url:googleplay" content="https://cosmoscoderr.online">
+    <meta name="x:app:id:iphone" content="cosmoscoderr.online">
+    <meta name="x:app:id:ipad" content="cosmoscoderr.online">
+    <meta name="x:app:id:googleplay" content="cosmoscoderr.online">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -45,7 +56,6 @@
     <style>
         /* Cosmic Color Scheme */
         :root {
-            /* Night Theme (Default) */
             --quantum-blue: #00f7ff;
             --plasma-pink: #ff00f7;
             --dark-matter: #0a0a12;
@@ -53,35 +63,6 @@
             --event-horizon: #2a2a5a;
             --light-speed: 0.4s;
             --pulse: 0 0 20px currentColor;
-            --text-primary: var(--quantum-blue);
-            --text-secondary: white;
-            --bg-primary: var(--dark-matter);
-            --bg-secondary: var(--neutron-star);
-            --border-color: var(--event-horizon);
-        }
-
-        /* Day Theme */
-        [data-theme="day"] {
-            --quantum-blue: #0066ff;
-            --plasma-pink: #ff3366;
-            --dark-matter: #ffffff;
-            --neutron-star: #f0f4ff;
-            --event-horizon: #e0e6ff;
-            --text-primary: #1a1a3d;
-            --text-secondary: #4a4a6d;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f0f4ff;
-            --border-color: #e0e6ff;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --nav-bg: rgba(255, 255, 255, 0.95);
-            --modal-bg: rgba(255, 255, 255, 0.98);
-            --modal-shadow: rgba(0, 0, 0, 0.15);
-        }
-
-        /* Theme Transition */
-        :root {
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Space Reset */
@@ -89,22 +70,16 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Orbitron', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: var(--dark-matter);
+            color: var(--quantum-blue);
             overflow-x: hidden;
             min-height: 100vh;
             line-height: 1.6;
             cursor: none;
-            scroll-behavior: smooth;
         }
 
         /* Quantum Field Background */
@@ -152,26 +127,6 @@
             box-shadow: 0 0 10px var(--plasma-pink);
         }
 
-        /* Enhanced Day Theme Cursor Styles */
-        [data-theme="day"] .cosmic-cursor {
-            width: 24px;
-            height: 24px;
-            background: radial-gradient(circle, #0066ff 30%, rgba(0, 102, 255, 0.5) 70%);
-            box-shadow: 0 0 20px #0066ff, 0 0 40px rgba(0, 102, 255, 0.5);
-            border: 2px solid #0066ff;
-            mix-blend-mode: normal;
-        }
-
-        [data-theme="day"] .cursor-trail {
-            width: 12px;
-            height: 12px;
-            background: #ff3366;
-            opacity: 0.8;
-            box-shadow: 0 0 20px #ff3366, 0 0 40px rgba(255, 51, 102, 0.5);
-            border: 1px solid #ff3366;
-            mix-blend-mode: normal;
-        }
-
         /* Pulsar Navigation */
         .cosmic-nav {
             position: fixed;
@@ -181,8 +136,8 @@
             padding: 1.5rem;
             z-index: 1000;
             backdrop-filter: blur(10px);
-            background: rgba(var(--bg-primary), 0.8);
-            border-bottom: 1px solid var(--border-color);
+            background: rgba(10, 10, 18, 0.8);
+            border-bottom: 1px solid var(--event-horizon);
         }
 
         .nav-container {
@@ -196,7 +151,7 @@
         .nav-logo {
             font-weight: 900;
             font-size: 1.5rem;
-            color: var(--text-primary);
+            color: var(--quantum-blue);
             text-decoration: none;
         }
 
@@ -206,7 +161,7 @@
         }
 
         .nav-link {
-            color: var(--text-primary);
+            color: var(--quantum-blue);
             text-decoration: none;
             font-weight: 700;
             position: relative;
@@ -239,12 +194,9 @@
             display: none;
             background: none;
             border: none;
-            color: var(--text-primary);
+            color: var(--quantum-blue);
             font-size: 1.5rem;
             cursor: pointer;
-            padding: 0.5rem;
-            z-index: 1003;
-            position: relative;
         }
 
         /* Hero Singularity */
@@ -364,13 +316,13 @@
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
-            color: var(--text-secondary);
+            color: white;
             font-size: 1.2rem;
             line-height: 1.8;
             padding: 2rem;
-            background: rgba(var(--bg-secondary), 0.05);
+            background: rgba(0, 247, 255, 0.05);
             border-radius: 1rem;
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(0, 247, 255, 0.1);
             backdrop-filter: blur(10px);
             transform: translateY(0);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -397,11 +349,11 @@
         }
 
         .blog-post {
-            background: rgba(var(--bg-secondary), 0.1);
+            background: rgba(255, 0, 247, 0.1);
             padding: 2rem;
             border-radius: 1rem;
             transition: all 0.4s ease;
-            border: 1px solid var(--border-color);
+            border: 1px solid transparent;
             transform-style: preserve-3d;
             perspective: 1000px;
         }
@@ -415,7 +367,7 @@
         }
 
         .blog-post h3 {
-            color: var(--text-primary);
+            color: var(--quantum-blue);
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
@@ -427,7 +379,7 @@
         }
 
         .blog-post p {
-            color: var(--text-secondary);
+            color: white;
         }
 
         .read-more {
@@ -545,11 +497,11 @@
         }
 
         .project {
-            background: var(--bg-secondary);
+            background: var(--neutron-star);
             border-radius: 1rem;
             overflow: hidden;
             transition: all var(--light-speed);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--event-horizon);
             position: relative;
             transform-style: preserve-3d;
         }
@@ -579,14 +531,14 @@
         }
 
         .project h3 {
-            color: var(--text-primary);
+            color: var(--plasma-pink);
             margin: 1rem 0;
             font-size: 1.3rem;
             padding: 0 1.5rem;
         }
 
         .project p {
-            color: var(--text-secondary);
+            color: white;
             padding: 0 1.5rem 1.5rem;
         }
 
@@ -594,7 +546,7 @@
             text-align: center;
             margin: 4rem 0;
             padding: 4rem 2rem;
-            background: rgba(var(--bg-secondary), 0.05);
+            background: rgba(0, 247, 255, 0.05);
             border-radius: 1rem;
         }
 
@@ -717,16 +669,6 @@
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: block;
-                position: fixed;
-                top: 1.5rem;
-                right: 4.5rem; /* Move menu button to the left of theme toggle */
-            }
-
-            .theme-toggle {
-                top: 1.5rem;
-                right: 1.5rem;
-                width: 40px;
-                height: 40px;
             }
 
             .nav-links {
@@ -736,13 +678,12 @@
                 width: 80%;
                 max-width: 300px;
                 height: 100vh;
-                background: var(--bg-primary);
+                background: var(--dark-matter);
                 flex-direction: column;
-                padding: 6rem 2rem 2rem;
-                transition: right 0.3s ease;
-                border-left: 1px solid var(--border-color);
+                padding: 6rem 2rem;
+                transition: right var(--light-speed);
+                border-left: 1px solid var(--event-horizon);
                 z-index: 1001;
-                overflow-y: auto;
             }
 
             .nav-links.active {
@@ -750,68 +691,45 @@
             }
 
             .menu-overlay {
+                display: none;
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0, 0, 0, 0.5);
+                background: transparent;
                 z-index: 1000;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.3s ease, visibility 0.3s ease;
             }
 
             .menu-overlay.active {
-                opacity: 1;
-                visibility: visible;
+                display: block;
             }
 
-            /* Ensure proper z-index stacking */
-            .nav-links {
-                z-index: 1001;
-            }
-
-            .menu-overlay {
-                z-index: 1000;
-            }
-
-            .mobile-menu-btn {
-                z-index: 1003;
-            }
-
-            .theme-toggle {
-                z-index: 1002;
-            }
-
-            /* Add touch feedback */
-            .nav-link:active {
-                background: var(--bg-secondary);
-            }
-
-            /* Improve touch targets */
-            .nav-link {
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-                padding: 1rem 0;
-                border-bottom: 1px solid var(--border-color);
-            }
-
-            /* Add visual feedback for active state */
-            .nav-link.active {
-                color: var(--plasma-pink);
-                padding-left: 1rem;
-            }
-
-            /* Ensure proper spacing for header content */
             .hero {
                 padding-top: 8rem;
             }
 
-            /* Adjust container padding */
-            .container {
-                padding: 4rem 1rem;
+            .projects-grid, .blog-posts {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 90%;
+                margin: 2rem auto;
+                padding: 2.5rem 1.5rem 1.5rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+                padding-right: 30px;
+            }
+
+            .close-modal {
+                top: 0.75rem;
+                right: 0.75rem;
+                width: 30px;
+                height: 30px;
+                font-size: 1.2rem;
             }
         }
 
@@ -1094,231 +1012,6 @@
             50% { border-image: linear-gradient(180deg, var(--quantum-blue), var(--plasma-pink)) 1; }
             100% { border-image: linear-gradient(360deg, var(--quantum-blue), var(--plasma-pink)) 1; }
         }
-
-        /* Theme Toggle Button */
-        .theme-toggle {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            z-index: 1002;
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-color);
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-primary);
-            box-shadow: 0 2px 10px var(--shadow-color);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(180deg);
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-
-        .theme-toggle i {
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-
-        /* Enhanced Day Theme Specific Styles */
-        [data-theme="day"] .cosmic-nav {
-            background: var(--nav-bg);
-            box-shadow: 0 2px 10px var(--shadow-color);
-        }
-
-        [data-theme="day"] .project,
-        [data-theme="day"] .blog-post,
-        [data-theme="day"] .about-content {
-            background: var(--card-bg);
-            box-shadow: 0 4px 15px var(--shadow-color);
-            border: 1px solid var(--border-color);
-        }
-
-        [data-theme="day"] .quantum-field {
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 102, 255, 0.03) 0%, transparent 20%),
-                radial-gradient(circle at 80% 70%, rgba(255, 51, 102, 0.03) 0%, transparent 20%);
-        }
-
-        [data-theme="day"] .star {
-            display: none;
-        }
-
-        [data-theme="day"] .cursor-trail {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        [data-theme="day"] footer {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border-top: 1px solid var(--border-color);
-        }
-
-        [data-theme="day"] .social-link {
-            color: var(--quantum-blue);
-        }
-
-        [data-theme="day"] .social-link:hover {
-            color: var(--plasma-pink);
-        }
-
-        /* Enhanced Modal Styles for Day Theme */
-        [data-theme="day"] .modal {
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        [data-theme="day"] .modal-content {
-            background: var(--modal-bg);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px var(--modal-shadow);
-        }
-
-        [data-theme="day"] .modal-title {
-            color: var(--text-primary);
-        }
-
-        [data-theme="day"] .modal-date {
-            color: var(--plasma-pink);
-        }
-
-        [data-theme="day"] .modal-body {
-            color: var(--text-secondary);
-        }
-
-        [data-theme="day"] .close-modal {
-            color: var(--text-primary);
-        }
-
-        [data-theme="day"] .close-modal:hover {
-            color: var(--plasma-pink);
-        }
-
-        /* Enhanced Blog Post Styles for Day Theme */
-        [data-theme="day"] .blog-post {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-
-        [data-theme="day"] .blog-post h3 {
-            color: var(--text-primary);
-        }
-
-        [data-theme="day"] .blog-post .date {
-            color: var(--plasma-pink);
-        }
-
-        [data-theme="day"] .blog-post p {
-            color: var(--text-secondary);
-        }
-
-        [data-theme="day"] .read-more {
-            color: var(--quantum-blue);
-        }
-
-        [data-theme="day"] .read-more:hover {
-            color: var(--plasma-pink);
-        }
-
-        /* Enhanced Header Styles for Day Theme */
-        [data-theme="day"] header {
-            background: linear-gradient(45deg, var(--quantum-blue), var(--plasma-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: none;
-        }
-
-        [data-theme="day"] .subtitle {
-            color: var(--plasma-pink);
-            text-shadow: none;
-        }
-
-        [data-theme="day"] .tagline {
-            color: var(--text-primary);
-        }
-
-        /* Enhanced Button Styles for Day Theme */
-        [data-theme="day"] .cta-btn,
-        [data-theme="day"] .donation-btn {
-            background: linear-gradient(45deg, var(--quantum-blue), var(--plasma-pink));
-            color: white;
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-
-        [data-theme="day"] .cta-btn:hover,
-        [data-theme="day"] .donation-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px var(--shadow-color);
-        }
-
-        /* Enhanced Section Headers for Day Theme */
-        [data-theme="day"] h2 {
-            color: var(--text-primary);
-        }
-
-        [data-theme="day"] h2::after {
-            background: linear-gradient(90deg, var(--quantum-blue), var(--plasma-pink));
-        }
-
-        /* Enhanced Contact Section for Day Theme */
-        [data-theme="day"] .contact-info {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-
-        [data-theme="day"] .contact-icon {
-            color: var(--quantum-blue);
-        }
-
-        [data-theme="day"] .contact-item a {
-            color: var(--text-primary);
-        }
-
-        [data-theme="day"] .contact-item a:hover {
-            color: var(--plasma-pink);
-        }
-
-        /* Enhanced Scroll to Top Button for Day Theme */
-        [data-theme="day"] .scroll-to-top {
-            background: var(--quantum-blue);
-            color: white;
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-
-        [data-theme="day"] .scroll-to-top:hover {
-            background: var(--plasma-pink);
-        }
-
-        /* Mobile Optimizations for Day Theme */
-        @media (max-width: 768px) {
-            .theme-toggle {
-                top: 1rem;
-                right: 1rem;
-                width: 40px;
-                height: 40px;
-            }
-
-            [data-theme="day"] .nav-links {
-                background: var(--nav-bg);
-                box-shadow: -2px 0 10px var(--shadow-color);
-            }
-
-            [data-theme="day"] .menu-overlay.active {
-                background: rgba(0, 0, 0, 0.1);
-            }
-
-            [data-theme="day"] .modal-content {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1349,11 +1042,6 @@
             </div>
         </div>
     </nav>
-
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i class="fas fa-moon"></i>
-    </button>
 
     <!-- Hero Singularity -->
     <section class="hero" id="home">
@@ -1396,6 +1084,21 @@
                         <p>Turn any image into a puzzle game with AI-generated challenges.</p>
                     </a>
                 </div>
+                     
+
+                    <div class="project" data-category="tool">
+                    <a href="https://onetwo346.github.io/glow-radio-" target="_self">
+                        <img src="glowlogo.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Glow Radio'" alt="Glow Radio" loading="lazy">
+                        <h3>Glow Radio</h3>
+                        <p>Glow Radio is an online platform that offers live streaming of radio stations from around the world, allowing users to explore diverse musical genres and cultures.</p>
+                    </a>
+                </div>
+
+
+
+                
+
+                
                 <div class="project" data-category="web">
                     <a href="https://earthquakeanalyst.space" target="_self">
                         <img src="quake.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Earthquake+Analyst'" alt="Earthquake Analyst" loading="lazy">
@@ -1544,64 +1247,6 @@
     <script>
         // Initialize cosmic elements
         document.addEventListener('DOMContentLoaded', () => {
-            // Theme Management
-            const themeToggle = document.getElementById('themeToggle');
-            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-            
-            // Function to set theme
-            function setTheme(theme) {
-                document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-                
-                // Update theme toggle icon with smooth transition
-                const icon = themeToggle.querySelector('i');
-                icon.style.transform = 'rotate(0deg)';
-                setTimeout(() => {
-                    icon.className = theme === 'day' ? 'fas fa-moon' : 'fas fa-sun';
-                    icon.style.transform = 'rotate(180deg)';
-                }, 150);
-                
-                // Update meta theme-color for mobile browsers
-                const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-                if (!metaThemeColor) {
-                    const meta = document.createElement('meta');
-                    meta.name = 'theme-color';
-                    document.head.appendChild(meta);
-                }
-                document.querySelector('meta[name="theme-color"]').content = theme === 'day' ? '#ffffff' : '#0a0a12';
-            }
-            
-            // Function to check time and set theme
-            function checkTimeAndSetTheme() {
-                const hour = new Date().getHours();
-                const isDayTime = hour >= 6 && hour < 18; // 6 AM to 6 PM
-                setTheme(isDayTime ? 'day' : 'night');
-            }
-            
-            // Initialize theme
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                setTheme(savedTheme);
-            } else {
-                checkTimeAndSetTheme();
-            }
-            
-            // Theme toggle click handler
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                setTheme(currentTheme === 'day' ? 'night' : 'day');
-            });
-            
-            // Auto-switch theme based on time
-            setInterval(checkTimeAndSetTheme, 60000); // Check every minute
-            
-            // Listen for system theme changes
-            prefersDarkScheme.addEventListener('change', (e) => {
-                if (!localStorage.getItem('theme')) {
-                    setTheme(e.matches ? 'night' : 'day');
-                }
-            });
-
             // Set current year
             document.getElementById('year').textContent = new Date().getFullYear();
             
@@ -1664,81 +1309,11 @@
                 }
             });
 
-            // Unified smooth scroll function with improved precision
-            function smoothScroll(targetPosition, duration = 1000) {
-                const startPosition = window.pageYOffset;
-                const distance = targetPosition - startPosition;
-                let start = null;
-                let requestId;
-
-                // Enhanced easing function for smoother acceleration and deceleration
-                function easeInOutCubic(t, b, c, d) {
-                    t /= d/2;
-                    if (t < 1) return c/2*t*t*t + b;
-                    t -= 2;
-                    return c/2*(t*t*t + 2) + b;
-                }
-
-                function animation(currentTime) {
-                    if (start === null) start = currentTime;
-                    const timeElapsed = Math.min(currentTime - start, duration);
-                    const progress = easeInOutCubic(timeElapsed, startPosition, distance, duration);
-                    
-                    // Ensure we don't overshoot the target
-                    if (distance > 0) {
-                        window.scrollTo(0, Math.min(progress, targetPosition));
-                    } else {
-                        window.scrollTo(0, Math.max(progress, targetPosition));
-                    }
-                    
-                    if (timeElapsed < duration) {
-                        requestId = requestAnimationFrame(animation);
-                    } else {
-                        // Ensure we land exactly on target
-                        window.scrollTo(0, targetPosition);
-                    }
-                }
-
-                // Cancel any ongoing animation
-                if (typeof window.currentScrollAnimation !== 'undefined') {
-                    cancelAnimationFrame(window.currentScrollAnimation);
-                }
-                
-                requestId = requestAnimationFrame(animation);
-                window.currentScrollAnimation = requestId;
-            }
-
-            // Apply smooth scroll to all navigation links with improved handling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        // Close mobile menu if open
-                        if (navLinks.classList.contains('active')) {
-                            toggleMenu();
-                        }
-                        
-                        // Calculate exact target position with offset for fixed header
-                        const headerOffset = 80; // Height of fixed header
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                        
-                        // Ensure we don't scroll past the document bounds
-                        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                        const targetPosition = Math.min(offsetPosition, maxScroll);
-                        
-                        smoothScroll(targetPosition);
-                    }
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
-            });
-
-            // Update scroll to top button with precise handling
-            scrollToTopBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                smoothScroll(0);
             });
 
             // Enhanced cursor trail with performance optimization
@@ -1761,21 +1336,9 @@
                     const trail = document.createElement('div');
                     trail.className = 'cursor-trail';
                     trail.style.transform = `translate(${currentX}px, ${currentY}px)`;
-                    
-                    // Adjust trail size based on theme
-                    const isDayTheme = document.documentElement.getAttribute('data-theme') === 'day';
-                    const size = isDayTheme ? Math.random() * 12 + 8 : Math.random() * 8 + 4;
-                    trail.style.width = `${size}px`;
+                    trail.style.width = `${Math.random() * 8 + 4}px`;
                     trail.style.height = trail.style.width;
-                    
-                    // Use brighter colors in day mode
-                    if (isDayTheme) {
-                        trail.style.background = Math.random() > 0.5 ? '#0066ff' : '#ff3366';
-                        trail.style.boxShadow = `0 0 20px ${trail.style.background}, 0 0 40px ${trail.style.background}80`;
-                    } else {
-                        trail.style.background = Math.random() > 0.5 ? 'var(--quantum-blue)' : 'var(--plasma-pink)';
-                    }
-                        
+                    trail.style.background = Math.random() > 0.5 ? 'var(--quantum-blue)' : 'var(--plasma-pink)';
                     document.body.appendChild(trail);
                     trails.push(trail);
                     
@@ -1788,7 +1351,7 @@
                     }
                     
                     // Fade out and remove trail with random duration
-                    const duration = isDayTheme ? Math.random() * 300 + 150 : Math.random() * 200 + 100;
+                    const duration = Math.random() * 200 + 100;
                     setTimeout(() => {
                         trail.style.opacity = '0';
                         setTimeout(() => {
@@ -1827,7 +1390,6 @@
             const menuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
             const menuOverlay = document.getElementById('menuOverlay');
-            const navItems = document.querySelectorAll('.nav-link');
             
             function toggleMenu() {
                 const isExpanded = navLinks.classList.contains('active');
@@ -1835,9 +1397,6 @@
                 menuOverlay.classList.toggle('active');
                 menuBtn.setAttribute('aria-expanded', !isExpanded);
                 menuBtn.innerHTML = isExpanded ? '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
-                
-                // Prevent body scroll when menu is open
-                document.body.style.overflow = isExpanded ? '' : 'hidden';
                 
                 // Trap focus within menu when open
                 if (!isExpanded) {
@@ -1864,54 +1423,34 @@
                 }
             }
             
-            // Add click event listener to menu button
             menuBtn.addEventListener('click', toggleMenu);
-            
-            // Close menu when clicking overlay
             menuOverlay.addEventListener('click', toggleMenu);
             
-            // Close menu when clicking a link
-            navItems.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navLinks.classList.contains('active')) {
-                        toggleMenu();
-                    }
-                });
-            });
-            
-            // Close menu on escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && navLinks.classList.contains('active')) {
-                    toggleMenu();
-                }
-            });
-            
-            // Prevent menu from closing when clicking inside it
-            navLinks.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-            
-            // Add active state to current section
-            function updateActiveSection() {
-                const sections = document.querySelectorAll('section[id]');
-                const scrollY = window.pageYOffset;
-                
-                sections.forEach(section => {
-                    const sectionHeight = section.offsetHeight;
-                    const sectionTop = section.offsetTop - 100;
-                    const sectionId = section.getAttribute('id');
-                    const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+            // Enhanced smooth scrolling with offset compensation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const target = document.querySelector(targetId);
                     
-                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                        navLink?.classList.add('active');
-                    } else {
-                        navLink?.classList.remove('active');
+                    if (target) {
+                        const navHeight = document.querySelector('.cosmic-nav').offsetHeight;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        history.pushState(null, null, targetId);
+                        
+                        // Close mobile menu if open
+                        if (navLinks.classList.contains('active')) {
+                            toggleMenu();
+                        }
                     }
                 });
-            }
-            
-            window.addEventListener('scroll', updateActiveSection);
-            window.addEventListener('load', updateActiveSection);
+            });
             
             // Optimized project filtering
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -2095,51 +1634,6 @@
             // Add float animation to blog posts
             document.querySelectorAll('.blog-post').forEach(post => {
                 post.classList.add('float-animation');
-            });
-
-            // Enhanced smooth scrolling with controlled animation
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        // Close mobile menu if open
-                        if (navLinks.classList.contains('active')) {
-                            toggleMenu();
-                        }
-                        
-                        // Get target position
-                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                        const startPosition = window.pageYOffset;
-                        const distance = targetPosition - startPosition;
-                        const duration = 1000; // Duration in milliseconds
-                        let start = null;
-                        
-                        // Easing function for smooth acceleration and deceleration
-                        function easeInOutCubic(t, b, c, d) {
-                            t /= d/2;
-                            if (t < 1) return c/2*t*t*t + b;
-                            t -= 2;
-                            return c/2*(t*t*t + 2) + b;
-                        }
-                        
-                        // Animation function
-                        function animation(currentTime) {
-                            if (start === null) start = currentTime;
-                            const timeElapsed = currentTime - start;
-                            const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
-                            window.scrollTo(0, run);
-                            
-                            if (timeElapsed < duration) {
-                                requestAnimationFrame(animation);
-                            }
-                        }
-                        
-                        requestAnimationFrame(animation);
-                    }
-                });
             });
         });
     </script>
