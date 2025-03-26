@@ -314,12 +314,15 @@
 
         .blog-post {
             background: rgba(255, 0, 247, 0.1);
-            padding: 2rem;
+            padding: 3rem 2rem 2rem;
             border-radius: 1rem;
             transition: all 0.4s ease;
             border: 1px solid transparent;
             transform-style: preserve-3d;
             perspective: 1000px;
+            position: relative;
+            margin-bottom: 1rem;
+            overflow: visible;
         }
 
         .blog-post:hover {
@@ -332,18 +335,47 @@
 
         .blog-post h3 {
             color: var(--quantum-blue);
-            margin-bottom: 1rem;
+            margin: 0 0 1rem;
             font-size: 1.5rem;
+            padding-right: 2rem;
+            line-height: 1.3;
+        }
+
+        .blog-post .close-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            color: var(--quantum-blue);
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color var(--light-speed);
+            z-index: 2;
+            padding: 0;
+            border-radius: 50%;
+        }
+
+        .blog-post .close-btn:hover {
+            color: var(--plasma-pink);
         }
 
         .blog-post .date {
             color: var(--plasma-pink);
             font-size: 0.9rem;
             margin-bottom: 1rem;
+            display: block;
         }
 
         .blog-post p {
             color: white;
+            margin: 1rem 0;
+            line-height: 1.6;
         }
 
         .read-more {
@@ -381,6 +413,7 @@
             border: 1px solid var(--quantum-blue);
             animation: modalFadeIn 0.3s ease-out;
             position: relative;
+            overflow: visible;
         }
 
         @keyframes modalFadeIn {
@@ -390,19 +423,22 @@
 
         .close-modal {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
+            top: 1rem;
+            right: 1rem;
             color: var(--quantum-blue);
             font-size: 1.5rem;
             cursor: pointer;
             transition: color var(--light-speed);
             background: none;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 2;
+            padding: 0;
+            border-radius: 50%;
         }
 
         .close-modal:hover {
@@ -411,8 +447,10 @@
 
         .modal-title {
             color: var(--quantum-blue);
-            margin-bottom: 1.5rem;
+            margin: 0 0 1rem;
             font-size: 2rem;
+            padding-right: 2.5rem;
+            line-height: 1.3;
         }
 
         .modal-date {
@@ -960,6 +998,113 @@
             50% { border-image: linear-gradient(180deg, var(--quantum-blue), var(--plasma-pink)) 1; }
             100% { border-image: linear-gradient(360deg, var(--quantum-blue), var(--plasma-pink)) 1; }
         }
+
+        /* iOS specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            /* Blog post fixes for iOS */
+            .blog-post {
+                padding: 3.5rem 1.5rem 1.5rem; /* Increased top padding */
+                margin-bottom: 1.5rem;
+                position: relative;
+                overflow: visible;
+            }
+
+            .blog-post h3 {
+                font-size: 1.3rem;
+                padding-right: 2.5rem; /* More space for close button */
+                margin-top: 0;
+                line-height: 1.4;
+            }
+
+            .blog-post .close-btn {
+                top: 1rem; /* Move down slightly */
+                right: 1rem;
+                width: 36px; /* Larger touch target */
+                height: 36px;
+                font-size: 1.8rem;
+                background: rgba(10, 10, 18, 0.8); /* Semi-transparent background */
+                border-radius: 50%;
+                z-index: 3;
+            }
+
+            .blog-post .date {
+                margin: 0.5rem 0 1rem;
+                display: block;
+                clear: both;
+            }
+
+            /* Modal fixes for iOS */
+            .modal-content {
+                padding: 3.5rem 1.5rem 1.5rem;
+                margin: 1rem;
+                width: calc(100% - 2rem);
+                position: relative;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+                padding-right: 3rem;
+                line-height: 1.4;
+                margin-top: 0;
+            }
+
+            .close-modal {
+                top: 1rem;
+                right: 1rem;
+                width: 36px;
+                height: 36px;
+                font-size: 1.8rem;
+                background: rgba(10, 10, 18, 0.8);
+                z-index: 3;
+            }
+
+            /* Navigation fixes for iOS */
+            .nav-links {
+                padding-top: 5rem; /* Extra space for status bar */
+            }
+
+            .nav-link {
+                padding: 1rem 0;
+                margin: 0.5rem 0;
+                font-size: 1.2rem;
+            }
+
+            /* General iOS fixes */
+            .hero {
+                min-height: -webkit-fill-available;
+                padding-top: calc(4rem + env(safe-area-inset-top));
+            }
+
+            .container {
+                padding-top: calc(2rem + env(safe-area-inset-top));
+            }
+
+            /* Fix for iOS Safari bottom bar */
+            .scroll-to-top {
+                bottom: calc(1rem + env(safe-area-inset-bottom));
+            }
+        }
+
+        /* Enhanced mobile styles */
+        @media (max-width: 480px) {
+            .blog-post {
+                padding: 3.5rem 1.5rem 1.5rem;
+            }
+
+            .blog-post h3 {
+                font-size: 1.2rem;
+                padding-right: 2.5rem;
+            }
+
+            .modal-content {
+                padding: 3.5rem 1.5rem 1.5rem;
+            }
+
+            .modal-title {
+                font-size: 1.4rem;
+                padding-right: 3rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1156,7 +1301,7 @@
         <p>© <span id="year"></span> Cosmos Coderr. All rights reserved.</p>
         <div class="social-links">
             <a href="https://x.com/cosmoscoderr" target="_blank" rel="noopener noreferrer" aria-label="X Profile">
-                <span class="x-logo">𝕏</span>
+                <span class="x-logo">��</span>
             </a>
         </div>
         <p>Made with <i class="fas fa-heart" style="color: var(--plasma-pink);"></i> in the cosmos</p>
@@ -1488,7 +1633,6 @@
                 
                 loader.style.display = 'block';
                 
-                // Use DocumentFragment for better performance
                 const fragment = document.createDocumentFragment();
                 
                 try {
@@ -1496,6 +1640,7 @@
                         const article = document.createElement('article');
                         article.className = 'blog-post scroll-reveal';
                         article.innerHTML = `
+                            <button class="close-btn" aria-label="Close">×</button>
                             <h3>${post.title}</h3>
                             <span class="date">${post.date}</span>
                             <p>${post.summary}</p>
@@ -1516,6 +1661,15 @@
                             document.getElementById('modalDate').textContent = blogPosts[postId].date;
                             document.getElementById('modalBody').innerHTML = blogPosts[postId].fullContent;
                             openModal();
+                        });
+                    });
+
+                    // Add close button handlers
+                    document.querySelectorAll('.blog-post .close-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const post = this.closest('.blog-post');
+                            post.style.opacity = '0';
+                            setTimeout(() => post.remove(), 400);
                         });
                     });
                     
